@@ -6,6 +6,8 @@ import statsmodels.api as sm
 import matplotlib.dates as mdates
 from datetime import datetime
 import glob
+import plotly.express as px
+import plotly.graph_objects as go
 
 # 데이터 로드
 folder_path = 'month_call_total'
@@ -22,7 +24,7 @@ latest_file = max(csv_files, key=extract_date)
 
 # 선택된 최신 파일 로드
 df = pd.read_csv(latest_file)
-                 
+
 if not df.empty:
     df = df[['ds', 'y']]
     df['ds'] = pd.to_datetime(df['ds'])
@@ -77,7 +79,7 @@ if not df.empty:
         # 최종 예측 날짜에서 -15개월과 +7개월 범위 계산
         max_date = df.index.max()
         min_date = max_date - pd.DateOffset(months=17)
-        max_forecast_date = max_date + pd.DateOffset(months=7)
+        max_forecast_date = max_date + pd.DateOffset(months=3)
 
         # Interactive date range selectors in a single row
         col1, col2, col3, col4 = st.columns(4)
@@ -99,40 +101,33 @@ if not df.empty:
             y_max = max(df_filtered['y'].max(), predict_mean.max())
             y_range_margin = (y_max - y_min) * 0.1  # 여유를 두기 위해 10% 추가
 
-            # 동적으로 업데이트되는 시각화
-            fig_filtered, ax_filtered = plt.subplots(figsize=(14, 5))
-            ax_filtered.plot(df_filtered, color='blue', label='Actual Values')
-            ax_filtered.fill_between(predict_mean.index, conf_int_lb, conf_int_ub, color='red', alpha=0.1, label='95% Confidence Interval')
-            
-            # 필터링된 날짜 범위 내의 예측 값 필터링
-            predict_mean_filtered = predict_mean[start_date:end_date]
-            conf_int_lb_filtered = conf_int_lb[start_date:end_date]
-            conf_int_ub_filtered = conf_int_ub[start_date:end_date]
-            
-            ax_filtered.plot(predict_mean_filtered, label=f'Predicted Values (model = (1,1,1),(2,0,1,12))', color='red', linestyle='--', alpha=0.5)
+            # 동적으로 업데이트되는 시각화 using Plotly
+            fig_filtered = go.Figure()
 
-            # 실제 값의 숫자를 플롯에 추가 (정수로 표시)
-            for x, y in zip(df_filtered.index, df_filtered['y']):
-                ax_filtered.text(x, y, f'{int(y)}', color='blue', fontsize=12, ha='center', va='bottom', rotation=10)
+            # 실제 값 추가
+            fig_filtered.add_trace(go.Scatter(x=df_filtered.index, y=df_filtered['y'], mode='lines+markers+text', name='Actual Values',
+                                              text=df_filtered['y'].astype(int), textposition='top center', textfont=dict(size=10)))
 
-            # 예측 값의 숫자를 플롯에 추가 (정수로 표시)
-            for x, y in zip(predict_mean_filtered.index, predict_mean_filtered):
-                ax_filtered.text(x, y, f'{int(y)}', color='red', fontsize=12, ha='center', va='bottom', rotation=10)
+            # 예측 값 추가
+            fig_filtered.add_trace(go.Scatter(x=predict_mean.index, y=predict_mean, mode='lines+markers+text', name='Predicted Values',
+                                              line=dict(dash='dash', color='red'), text=predict_mean.astype(int), textposition='top center', textfont=dict(size=10)))
 
-            # y축 범위 설정
-            ax_filtered.set_ylim(y_min - y_range_margin, y_max + y_range_margin)
-            ax_filtered.legend(loc='upper right')
-            ax_filtered.set_title('Filtered Predicted vs Actual Values')
+            # 신뢰 구간 추가
+            fig_filtered.add_trace(go.Scatter(x=predict_mean.index, y=conf_int_lb, fill=None, mode='lines', line_color='red', showlegend=False))
+            fig_filtered.add_trace(go.Scatter(x=predict_mean.index, y=conf_int_ub, fill='tonexty', mode='lines', line_color='red', fillcolor='rgba(255, 0, 0, 0.1)', showlegend=False))
 
-            # x축 레이블 설정
-            ax_filtered.xaxis.set_major_locator(mdates.MonthLocator(interval=1))
-            ax_filtered.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
-            plt.setp(ax_filtered.get_xticklabels(), rotation=45, ha='center')
+            # 레이아웃 설정 (height 값 조절)
+            fig_filtered.update_layout(
+                title='Filtered Predicted vs Actual Values',
+                yaxis=dict(range=[y_min - y_range_margin, y_max + y_range_margin]),
+                xaxis=dict(tickformat='%Y-%m'),
+                legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='right', x=1),
+                margin=dict(l=40, r=40, t=20, b=40),
+                hovermode='x unified',
+                height=300  # 여기서 높이를 조절합니다. 기본 높이보다 0.6배 작게 설정
+            )
 
-            # 격자 설정
-            ax_filtered.grid(True, which='both', linestyle='--', linewidth=0.5, color='gray', alpha=0.7)
-
-            st.pyplot(fig_filtered)
+            st.plotly_chart(fig_filtered)
     else:
         st.error("Prediction model fitting failed.")
 else:
