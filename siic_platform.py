@@ -5,10 +5,24 @@ import matplotlib.pyplot as plt
 import statsmodels.api as sm
 import matplotlib.dates as mdates
 from datetime import datetime
+import glob
 
 # 데이터 로드
-df = pd.read_csv('month_call_total/month_call_2024-07.csv')
+folder_path = 'month_call_total'
+csv_files = glob.glob(f'{folder_path}/*.csv')
 
+# 파일명에서 날짜를 추출하여 가장 최근의 파일 선택
+def extract_date(file_path):
+    file_name = file_path.split('/')[-1]
+    date_str = file_name.split('_')[-1].split('.')[0]
+    return datetime.strptime(date_str, '%Y-%m')
+
+# 모든 파일의 날짜를 추출하고 최신 파일 선택
+latest_file = max(csv_files, key=extract_date)
+
+# 선택된 최신 파일 로드
+df = pd.read_csv(latest_file)
+                 
 if not df.empty:
     df = df[['ds', 'y']]
     df['ds'] = pd.to_datetime(df['ds'])
