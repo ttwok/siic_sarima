@@ -71,7 +71,7 @@ def call_forecast():
             st.pyplot(fig)
 
             max_date = df.index.max()
-            start_control_date = max_date - pd.DateOffset(months=13)
+            start_control_date = max_date - pd.DateOffset(months=15)
             min_date = max_date - pd.DateOffset(months=36)
             max_forecast_date = max_date + pd.DateOffset(months=0)
 
