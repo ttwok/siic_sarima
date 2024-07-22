@@ -106,7 +106,7 @@ if not df.empty:
 
             # 실제 값 추가
             fig_filtered.add_trace(go.Scatter(x=df_filtered.index, y=df_filtered['y'], mode='lines+markers+text', name='Actual Values',
-                                              text=df_filtered['y'].astype(int), textposition='top center', textfont=dict(size=10)))
+                                              text=df_filtered['y'].astype(int), textposition='bottom center', textfont=dict(size=10)))
 
             # 예측 값 추가
             fig_filtered.add_trace(go.Scatter(x=predict_mean.index, y=predict_mean, mode='lines+markers+text', name='Predicted Values',
