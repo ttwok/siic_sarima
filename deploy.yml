@@ -21,10 +21,10 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install streamlit
+        pip install -r requirements.txt
 
     - name: Deploy to Streamlit
       run: |
-        streamlit run your_app.py
+        streamlit run siic_platform.py
       env:
         STREAMLIT_AUTH_TOKEN: ${{ secrets.STREAMLIT_AUTH_TOKEN }}
