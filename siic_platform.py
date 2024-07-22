@@ -11,7 +11,6 @@ from datetime import datetime
 @st.cache_data
 def load_data(folder_path):
     csv_files = glob.glob(f'{folder_path}/*.csv')
-    st.write(f"CSV files found: {csv_files}")  # 디버깅을 위해 추가
 
     def extract_date(file_path):
         file_name = file_path.split('/')[-1]
@@ -19,11 +18,7 @@ def load_data(folder_path):
         return datetime.strptime(date_str, '%Y-%m')
 
     latest_file = max(csv_files, key=extract_date)
-    st.write(f"Latest file selected: {latest_file}")  # 디버깅을 위해 추가
-
     df = pd.read_csv(latest_file)
-    st.write(f"Data loaded: {df.head()}")  # 디버깅을 위해 추가
-
     df = df[['ds', 'y']]
     df['ds'] = pd.to_datetime(df['ds'])
     df = df.set_index('ds')
