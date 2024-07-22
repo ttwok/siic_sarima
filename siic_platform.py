@@ -120,11 +120,11 @@ else:
 
                     # 실제 값의 숫자를 플롯에 추가 (정수로 표시)
                     for x, y in zip(df_filtered.index, df_filtered['y']):
-                        ax_filtered.text(x, y, f'{int(y)}', color='blue', fontsize=12, ha='center', va='bottom', rotation=10)
+                        ax_filtered.text(x, y, f'{int(y)}', color='blue', fontsize=10, ha='center', va='bottom', rotation=5)
 
                     # 예측 값의 숫자를 플롯에 추가 (정수로 표시)
                     for x, y in zip(predict_mean_filtered.index, predict_mean_filtered):
-                        ax_filtered.text(x, y, f'{int(y)}', color='red', fontsize=12, ha='center', va='bottom', rotation=10)
+                        ax_filtered.text(x, y, f'{int(y)}', color='red', fontsize=10, ha='center', va='bottom', rotation=5)
 
                     # y축 범위 설정
                     ax_filtered.set_ylim(y_min - y_range_margin, y_max + y_range_margin)
