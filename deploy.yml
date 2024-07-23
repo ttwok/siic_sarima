@@ -5,7 +5,9 @@ on:
     branches:
       - main
     paths:
-      - month_call_total/**  # 이 경로 아래 모든 하위 폴더와 파일을 포함
+      - 'month_call_total/**'  # data 폴더 내의 모든 변경 사항 모니터링
+      - 'requirements.txt'     # 필요한 파일 추가
+      - 'siic_platform.py'     # 필요한 파일 추가
 
 jobs:
   deploy:
