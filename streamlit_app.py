@@ -122,7 +122,7 @@ def call_forecast():
         st.error("Failed to retrieve data from Google Sheets.")
 
 # 사이드바에 탭 추가
-st.sidebar.title('SIIC Dashboard')
+st.sidebar.title('SIIC Data platform')
 
 # Main tabs
 main_tabs = ["SIIC Management", "SIIC Reporting"]
