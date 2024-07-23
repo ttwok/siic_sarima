@@ -298,7 +298,7 @@ elif main_selected_tab == "SIIC Management":
 
     elif sub_selected_tab == "SIIC 수요예측":
         st.subheader("SIIC 콜 처리량 수요예측")
-        st.info('5년간 콜 처리 현황 & M+7 예측값')
+        st.info('5년간 콜 처리 데이터를 학습한 모델을 적용하여 향후 7개월 콜 처리량의 demand forcasting을 수행 하였으며, 24년도 1~6월 실측값과 예측값 간의 정확도를 측정한 결과(mape 기준) 94.7% 예측 정확도를 보였습니다.)
         call_forecast()
 
 elif main_selected_tab == "SIIC Reporting":
