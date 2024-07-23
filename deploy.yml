@@ -7,7 +7,7 @@ on:
     paths:
       - 'month_call_total/**'  # data 폴더 내의 모든 변경 사항 모니터링
       - 'requirements.txt'     # 필요한 파일 추가
-      - 'siic_platform.py'     # 필요한 파일 추가
+      - 'streamlit_app.py'     # 필요한 파일 추가
 
 jobs:
   deploy:
@@ -29,6 +29,6 @@ jobs:
 
     - name: Deploy to Streamlit
       run: |
-        streamlit run siic_platform.py
+        streamlit run streamlit_app.py
       env:
         STREAMLIT_AUTH_TOKEN: ${{ secrets.STREAMLIT_AUTH_TOKEN }}
