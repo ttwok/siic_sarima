@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - month_call_total/**
+      - month_call_total/**  # 이 경로 아래 모든 하위 폴더와 파일을 포함
 
 jobs:
   deploy:
