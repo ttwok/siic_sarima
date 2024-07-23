@@ -139,7 +139,7 @@ if main_selected_tab == "SIIC Management":
     elif sub_selected_tab == "SIIC 운영실적":
         st.header("SIIC 운영실적")
         st.write("SIIC 콜 처리 현황입니다.")
-        st.write(":greed[raw data]는 :blue[csv 파일]로 다운로드 가능합니다.")
+        st.write(" :green[*raw data*]는 :blue[*csv 파일*]로 다운로드 가능합니다.")
         
         df_daycall = pd.read_csv('pusan_mall_2024-07-22.csv')
         df_daycall = df_daycall[df_daycall['총처리호'] != 0]
