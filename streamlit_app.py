@@ -125,17 +125,19 @@ def call_forecast():
 st.sidebar.title('SIIC Data platform')
 
 # Main tabs
-main_tabs = ["SIIC Management", "SIIC Reporting"]
+main_tabs = ["READ ME","SIIC Management", "SIIC Reporting"]
 main_selected_tab = st.sidebar.radio("Select a category", main_tabs)
+if main_selected_tab == "READ ME":
+    st.info("SIIC Data Platform은 데이터를 손쉽게 조작하고 다운로드할 수 있는 기능을 제공하며, 운영 지원을 위한 데이터 분석을 지원합니다. ")    
 
-if main_selected_tab == "SIIC Management":
+elif main_selected_tab == "SIIC Management":
     sub_tabs = ["READ ME","SIIC 운영현황", "SIIC 운영실적", "SIIC 수요예측"]
     sub_selected_tab = st.sidebar.radio("SIIC Management", sub_tabs)
 
-    if sub_selected_tab == "READ ME":
-        st.info("SIIC Data Platform은 데이터를 손쉽게 조작하고 다운로드할 수 있는 기능을 제공하며, 운영 지원을 위한 데이터 분석을 지원합니다. ")
+    # if sub_selected_tab == "READ ME":
+        
     
-    elif sub_selected_tab == "SIIC 운영현황":        
+    if sub_selected_tab == "SIIC 운영현황":        
         st.header("SIIC 운영현황")
 
 
