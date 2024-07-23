@@ -10,7 +10,8 @@ from datetime import datetime
 import plotly.express as px
 from plotly.subplots import make_subplots
 
-
+# 요일 이름 매핑
+day_name_map = {0: '월요일', 1: '화요일', 2: '수요일', 3: '목요일', 4: '금요일', 5: '토요일', 6: '일요일'}
 
 # 콜건수 예측 코드
 @st.cache_data
@@ -146,7 +147,7 @@ if main_selected_tab == "SIIC Management":
         df_daycall['날짜'] = pd.to_datetime(df_daycall['날짜'], format='%Y-%m-%d')
         
         # 요일 컬럼 추가
-        df_daycall['요일'] = df_daycall['날짜'].dt.day_name(locale='ko_KR')
+        df_daycall['요일'] = df_daycall['날짜'].dt.weekday.map(day_name_map)
         
         # 요일 컬럼을 순서 지정된 카테고리로 변환
         weekday_order = ['월요일', '화요일', '수요일', '목요일', '금요일']
@@ -226,8 +227,6 @@ if main_selected_tab == "SIIC Management":
                 st.dataframe(df_pivot_monthly)
         
             with t2:
-        
-        
                 # 마지막 데이터 일자에서부터 14일간의 데이터만 필터링
                 last_date = df_selected_teams['날짜'].max()
                 start_date = last_date - pd.Timedelta(days=10)
@@ -248,10 +247,10 @@ if main_selected_tab == "SIIC Management":
                 fig_bar.update_layout(yaxis_title='처리호', xaxis_title='날짜', xaxis={'categoryorder':'category ascending'}, legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1))
                 st.plotly_chart(fig_bar, use_container_width=True)
         
-                # # 영역형 차트 추가
-                # fig_area = px.area(df_melted, x='날짜', y='처리호', color='부서', title='일자별 부서별 콜 처리 현황 (영역형)')
-                # fig_area.update_layout(yaxis_title='처리호', xaxis_title='날짜', legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1))
-                # st.plotly_chart(fig_area, use_container_width=True)
+                # 영역형 차트 추가
+                fig_area = px.area(df_melted, x='날짜', y='처리호', color='부서', title='일자별 부서별 콜 처리 현황 (영역형)')
+                fig_area.update_layout(yaxis_title='처리호', xaxis_title='날짜', legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1))
+                st.plotly_chart(fig_area, use_container_width=True)
         
                 # 결과 데이터프레임 출력
                 st.write('*raw data*')
