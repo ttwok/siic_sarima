@@ -7,20 +7,6 @@ import plotly.graph_objects as go
 import glob
 from datetime import datetime
 
-# Everything is accessible via the st.secrets dict:
-
-st.write("DB username:", st.secrets["db_username"])
-st.write("DB password:", st.secrets["db_password"])
-
-# And the root-level secrets are also accessible as environment variables:
-
-import os
-
-st.write(
-    "Has environment variables been set:",
-    os.environ["db_username"] == st.secrets["db_username"],
-)
-
 # 콜건수 예측 코드
 @st.cache_data
 def load_data(folder_path):
