@@ -291,7 +291,7 @@ if main_selected_tab == "SIIC Management":
             st.dataframe(df_daily_mall[['날짜','쇼핑몰명','총처리호']])
 
     elif sub_selected_tab == "SIIC 수요예측":
-        st.subtitle("SIIC 콜 처리량 수요예측")
+        st.subheader("SIIC 콜 처리량 수요예측")
         st.info('5년간 콜 처리 현황 & M+7 예측값')
         call_forecast()
 
