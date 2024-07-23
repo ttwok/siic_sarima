@@ -134,7 +134,7 @@ if main_selected_tab == "SIIC Management":
     
     if sub_selected_tab == "SIIC 운영현황":
         st.header("SIIC 운영현황")
-        st.write("여기에 SIIC 운영현황에 대한 내용을 작성하세요.")
+        st.write("SIIC 콜처리현황 입니다.")
 
     elif sub_selected_tab == "SIIC 운영실적":
         st.header("SIIC 운영실적")
