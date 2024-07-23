@@ -134,11 +134,11 @@ if main_selected_tab == "SIIC Management":
     
     if sub_selected_tab == "SIIC 운영현황":
         st.header("SIIC 운영현황")
-        st.write("SIIC 콜처리현황 입니다.")
+
 
     elif sub_selected_tab == "SIIC 운영실적":
         st.header("SIIC 운영실적")
-        st.write("여기에 SIIC 운영실적에 대한 내용을 작성하세요.")
+        st.write("SIIC 콜 처리 현황입니다. raw data는 csv 파일은 다운로드 가능합니다..")
         
         df_daycall = pd.read_csv('pusan_mall_2024-07-22.csv')
         df_daycall = df_daycall[df_daycall['총처리호'] != 0]
@@ -190,7 +190,6 @@ if main_selected_tab == "SIIC Management":
         
         with c2:
             st.info('부서별 "콜 상세 현황 조회" 입니다.')
-            st.success('조회한 데이터는 raw data 영역에서 다운로드 하세요.')
             # 부서 선택 멀티셀렉트
             selected_teams = st.multiselect('조회 대상 부서를 선택하세요', [*team_name])
             # 선택한 부서의 데이터 필터링
