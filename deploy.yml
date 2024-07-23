@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'month_call_total/**'
+      - month_call_total/**
 
 jobs:
   deploy:
