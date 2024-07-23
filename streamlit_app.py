@@ -13,6 +13,7 @@ from plotly.subplots import make_subplots
 # 요일 이름 매핑
 day_name_map = {0: '월요일', 1: '화요일', 2: '수요일', 3: '목요일', 4: '금요일', 5: '토요일', 6: '일요일'}
 
+st.write('hi')
 # 콜건수 예측 코드
 @st.cache_data
 def load_data(folder_path):
