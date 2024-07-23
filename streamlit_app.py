@@ -133,6 +133,7 @@ if main_selected_tab == "SIIC Management":
     sub_selected_tab = st.sidebar.radio("SIIC Management", sub_tabs)
     
     if sub_selected_tab == "SIIC 운영현황":
+        st.info("SIIC Data Platform은 데이터를 손쉽게 조작하고 다운로드할 수 있는 기능을 제공하며, 운영 지원을 위한 데이터 분석을 지원합니다. ")
         st.header("SIIC 운영현황")
 
 
