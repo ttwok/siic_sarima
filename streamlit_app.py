@@ -102,8 +102,8 @@ def call_forecast():
             fig_filtered.add_trace(go.Scatter(x=predict_mean.index, y=predict_mean, mode='lines+markers+text', name='Predicted Values',
                                               line=dict(dash='dash', color='red'), text=predict_mean.astype(int), textposition='top center', textfont=dict(size=10)))
 
-            fig_filtered.add_trace(go.Scatter(x=predict_mean.index, y=conf_int_lb, fill=None, mode='lines', line_color='red', showlegend=False))
-            fig_filtered.add_trace(go.Scatter(x=predict_mean.index, y=conf_int_ub, fill='tonexty', mode='lines', line_color='red', fillcolor='rgba(255, 0, 0, 0.1)', showlegend=False))
+            fig_filtered.add_trace(go.Scatter(x=predict_mean.index, y=conf_int_lb, fill=None, mode='lines', line_color='rgba(0,0,0,0)', showlegend=False))
+            fig_filtered.add_trace(go.Scatter(x=predict_mean.index, y=conf_int_ub, fill=None, mode='lines', line_color='rgba(0,0,0,0)', fillcolor='rgba(255, 0, 0, 0.1)', showlegend=False))
 
             fig_filtered.update_layout(
                 title='forcasting M+7',
